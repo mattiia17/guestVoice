@@ -9,23 +9,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --ivory: #FAF8F5;
-            --warm-white: #F5F0EB;
-            --sand: #E8E0D8;
-            --stone: #C4B8AC;
-            --warm-gray: #8A7E74;
-            --charcoal: #3A3530;
-            --deep: #1E1B18;
+            --ivory: #FAFAF8;
+            --cream: #F6F4F0;
+            --sand: #E8E2DA;
+            --stone: #BFB5A8;
+            --warm-gray: #877D72;
+            --charcoal: #3C3731;
+            --deep: #1D1A17;
             --gold: #B8956A;
-            --gold-light: #D4B896;
-            --green-soft: #4A7C59;
-            --green-bg: rgba(74, 124, 89, 0.06);
-            --red-soft: #A65D57;
-            --red-bg: rgba(166, 93, 87, 0.06);
-            --shadow-sm: 0 1px 3px rgba(30, 27, 24, 0.04);
-            --shadow-md: 0 4px 20px rgba(30, 27, 24, 0.06);
-            --shadow-lg: 0 12px 40px rgba(30, 27, 24, 0.08);
-            --radius: 16px;
+            --gold-light: #CFAD85;
+            --green: #4D7E5B;
+            --green-bg: rgba(77, 126, 91, 0.07);
+            --red: #A15D57;
+            --red-bg: rgba(161, 93, 87, 0.07);
+            --shadow-sm: 0 1px 4px rgba(29, 26, 23, 0.05);
+            --shadow-md: 0 6px 24px rgba(29, 26, 23, 0.07);
+            --shadow-lg: 0 16px 48px rgba(29, 26, 23, 0.09);
+            --radius: 18px;
+            --radius-sm: 12px;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -41,57 +42,62 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        .container {
-            width: 100%;
-            max-width: 440px;
-            min-height: 100dvh;
-            display: flex;
-            flex-direction: column;
-            padding: 0 24px;
-            position: relative;
-            z-index: 1;
-        }
-
         body::before {
             content: '';
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(ellipse at 50% 0%, rgba(184, 149, 106, 0.04) 0%, transparent 60%);
+            background: 
+                radial-gradient(ellipse at 30% -10%, rgba(184, 149, 106, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 100%, rgba(77, 126, 91, 0.03) 0%, transparent 40%);
             pointer-events: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 420px;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            padding: 0 28px;
+            position: relative;
+            z-index: 1;
         }
 
         /* ===== HEADER ===== */
         .header {
-            padding: 44px 0 0;
+            padding: 48px 0 0;
             text-align: center;
             opacity: 0;
-            animation: fadeDown 0.8s ease-out 0.2s forwards;
+            animation: fadeDown 0.7s ease-out 0.15s forwards;
         }
 
-        .header-accent {
-            display: inline-block;
-            width: 32px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            margin-bottom: 20px;
+        .header-mark {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 4px;
+            border-radius: 2px;
+            background: linear-gradient(90deg, var(--gold-light), var(--gold));
+            margin-bottom: 22px;
         }
 
         .property-name {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 30px;
+            font-size: 32px;
             font-weight: 500;
             color: var(--deep);
-            letter-spacing: 0.01em;
+            letter-spacing: -0.01em;
             line-height: 1.15;
         }
 
         .property-subtitle {
-            font-size: 11.5px;
+            font-size: 11px;
             font-weight: 400;
             color: var(--stone);
-            letter-spacing: 0.18em;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
-            margin-top: 8px;
+            margin-top: 10px;
         }
 
         /* ===== CONTENT ===== */
@@ -100,32 +106,32 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 0 0 20px;
+            padding: 0 0 24px;
         }
 
         .screen { display: none; flex-direction: column; align-items: center; }
         .screen.active { display: flex; }
 
-        /* ===== SCREEN: QUESTION ===== */
+        /* ===== QUESTION SCREEN ===== */
         .question-text {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 34px;
+            font-size: 36px;
             font-weight: 400;
             color: var(--deep);
             text-align: center;
-            line-height: 1.25;
-            margin-bottom: 44px;
+            line-height: 1.2;
+            margin-bottom: 48px;
             opacity: 0;
-            animation: fadeUp 0.7s ease-out 0.5s forwards;
+            animation: fadeUp 0.6s ease-out 0.45s forwards;
         }
 
         .choices {
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 16px;
             width: 100%;
             opacity: 0;
-            animation: fadeUp 0.7s ease-out 0.7s forwards;
+            animation: fadeUp 0.6s ease-out 0.65s forwards;
         }
 
         .choice-btn {
@@ -133,568 +139,339 @@
             align-items: center;
             gap: 18px;
             width: 100%;
-            padding: 22px 24px;
+            padding: 22px 26px;
             border: 1.5px solid var(--sand);
             border-radius: var(--radius);
             background: white;
             cursor: pointer;
-            transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             box-shadow: var(--shadow-sm);
             -webkit-tap-highlight-color: transparent;
             text-decoration: none;
         }
 
-        .choice-btn:hover {
-            border-color: var(--gold-light);
-            box-shadow: var(--shadow-md);
-            transform: translateY(-2px);
-        }
+        .choice-btn:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
         .choice-btn:active { transform: translateY(0); box-shadow: var(--shadow-sm); }
-
-        .choice-btn.positive:hover { background: var(--green-bg); border-color: var(--green-soft); }
-        .choice-btn.negative:hover { background: var(--red-bg); border-color: var(--red-soft); }
+        .choice-btn.positive:hover { background: var(--green-bg); border-color: var(--green); }
+        .choice-btn.negative:hover { background: var(--red-bg); border-color: var(--red); }
 
         .choice-icon {
-            width: 48px;
-            height: 48px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 22px;
             flex-shrink: 0;
+            transition: transform 0.3s;
         }
 
+        .choice-btn:hover .choice-icon { transform: scale(1.08); }
         .positive .choice-icon { background: var(--green-bg); }
         .negative .choice-icon { background: var(--red-bg); }
 
-        .choice-label { display: flex; flex-direction: column; gap: 3px; }
-        .choice-title { font-size: 16px; font-weight: 500; color: var(--deep); text-align: left; }
-        .choice-desc { font-size: 13px; font-weight: 300; color: var(--warm-gray); text-align: left; }
+        .choice-label { display: flex; flex-direction: column; gap: 4px; }
+        .choice-title { font-size: 16.5px; font-weight: 500; color: var(--deep); text-align: left; }
+        .choice-desc { font-size: 13px; font-weight: 300; color: var(--warm-gray); text-align: left; line-height: 1.4; }
 
-        /* ===== SCREEN: FEEDBACK FORM ===== */
+        /* ===== FEEDBACK SCREEN ===== */
         .feedback-icon {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--warm-white), var(--sand));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            margin-bottom: 24px;
-            opacity: 0;
-            animation: scaleIn 0.5s ease-out 0.15s forwards;
+            width: 60px; height: 60px; border-radius: 50%;
+            background: linear-gradient(145deg, var(--cream), var(--sand));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; margin-bottom: 24px;
+            opacity: 0; animation: scaleIn 0.5s ease-out 0.15s forwards;
         }
 
         .feedback-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 28px;
-            font-weight: 500;
-            color: var(--deep);
-            text-align: center;
-            margin-bottom: 8px;
-            opacity: 0;
-            animation: fadeUp 0.6s ease-out 0.25s forwards;
+            font-size: 28px; font-weight: 500; color: var(--deep);
+            text-align: center; margin-bottom: 10px;
+            opacity: 0; animation: fadeUp 0.5s ease-out 0.25s forwards;
         }
 
         .feedback-subtitle {
-            font-size: 14px;
-            font-weight: 300;
-            color: var(--warm-gray);
-            text-align: center;
-            line-height: 1.55;
-            margin-bottom: 28px;
-            max-width: 340px;
-            opacity: 0;
-            animation: fadeUp 0.6s ease-out 0.35s forwards;
+            font-size: 14px; font-weight: 300; color: var(--warm-gray);
+            text-align: center; line-height: 1.55; margin-bottom: 30px; max-width: 320px;
+            opacity: 0; animation: fadeUp 0.5s ease-out 0.35s forwards;
         }
 
         .feedback-form {
             width: 100%;
-            opacity: 0;
-            animation: fadeUp 0.6s ease-out 0.45s forwards;
+            opacity: 0; animation: fadeUp 0.5s ease-out 0.4s forwards;
         }
 
         .feedback-textarea {
-            width: 100%;
-            min-height: 130px;
-            padding: 18px 20px;
-            border: 1.5px solid var(--sand);
-            border-radius: var(--radius);
-            background: white;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 15px;
-            font-weight: 300;
-            color: var(--charcoal);
-            line-height: 1.6;
-            resize: vertical;
+            width: 100%; min-height: 130px; padding: 18px 20px;
+            border: 1.5px solid var(--sand); border-radius: var(--radius);
+            background: white; font-family: 'DM Sans', sans-serif;
+            font-size: 15px; font-weight: 300; color: var(--charcoal);
+            line-height: 1.6; resize: vertical;
             transition: border-color 0.3s, box-shadow 0.3s;
-            outline: none;
-            box-shadow: var(--shadow-sm);
+            outline: none; box-shadow: var(--shadow-sm);
         }
 
         .feedback-textarea::placeholder { color: var(--stone); }
         .feedback-textarea:focus { border-color: var(--gold-light); box-shadow: var(--shadow-md); }
 
-        .form-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 10px;
-            margin-bottom: 20px;
+        .form-meta {
+            display: flex; justify-content: flex-end;
+            margin-top: 8px; margin-bottom: 20px;
         }
 
         .char-count { font-size: 12px; color: var(--stone); }
 
-        .submit-btn {
-            width: 100%;
-            padding: 18px 32px;
-            background: var(--deep);
-            color: white;
-            border: none;
-            border-radius: var(--radius);
-            font-family: 'DM Sans', sans-serif;
-            font-size: 15px;
-            font-weight: 500;
-            letter-spacing: 0.03em;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        .btn-primary {
+            width: 100%; padding: 18px 32px;
+            background: var(--deep); color: white; border: none;
+            border-radius: var(--radius); font-family: 'DM Sans', sans-serif;
+            font-size: 15px; font-weight: 500; letter-spacing: 0.02em;
+            cursor: pointer; transition: all 0.3s ease;
             box-shadow: var(--shadow-md);
             -webkit-tap-highlight-color: transparent;
         }
 
-        .submit-btn:hover { background: var(--charcoal); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
-        .submit-btn:active { transform: translateY(0); }
-        .submit-btn:disabled { background: var(--sand); color: var(--stone); cursor: not-allowed; transform: none; box-shadow: none; }
+        .btn-primary:hover { background: #2a2622; transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+        .btn-primary:active { transform: translateY(0); }
+        .btn-primary:disabled { background: var(--sand); color: var(--stone); cursor: not-allowed; transform: none; box-shadow: none; }
 
-        .back-link {
-            display: block;
-            text-align: center;
-            margin-top: 16px;
-            font-size: 13px;
-            color: var(--stone);
-            text-decoration: none;
-            cursor: pointer;
-            transition: color 0.2s;
+        .link-back {
+            display: block; text-align: center; margin-top: 18px;
+            font-size: 13px; color: var(--stone); text-decoration: none;
+            cursor: pointer; transition: color 0.2s;
         }
-        .back-link:hover { color: var(--warm-gray); }
+        .link-back:hover { color: var(--warm-gray); }
 
-        /* ===== SCREEN: SENT CONFIRMATION ===== */
-        .sent-icon {
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            background: var(--green-bg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* ===== CONFIRMATION SCREEN ===== */
+        .confirm-icon {
+            width: 68px; height: 68px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
             margin-bottom: 28px;
-            opacity: 0;
-            animation: scaleIn 0.5s ease-out 0.2s forwards;
+            opacity: 0; animation: scaleIn 0.5s ease-out 0.2s forwards;
         }
 
-        .sent-icon svg { width: 28px; height: 28px; color: var(--green-soft); }
+        .confirm-icon.success { background: var(--green-bg); }
+        .confirm-icon.success svg { width: 30px; height: 30px; color: var(--green); }
 
-        .sent-title {
+        .confirm-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 28px;
-            font-weight: 500;
-            color: var(--deep);
-            text-align: center;
-            margin-bottom: 12px;
-            opacity: 0;
-            animation: fadeUp 0.6s ease-out 0.4s forwards;
+            font-size: 28px; font-weight: 500; color: var(--deep);
+            text-align: center; margin-bottom: 12px;
+            opacity: 0; animation: fadeUp 0.5s ease-out 0.4s forwards;
         }
 
-        .sent-text {
-            font-size: 15px;
-            font-weight: 300;
-            color: var(--warm-gray);
-            text-align: center;
-            line-height: 1.6;
-            max-width: 300px;
-            opacity: 0;
-            animation: fadeUp 0.6s ease-out 0.5s forwards;
+        .confirm-text {
+            font-size: 15px; font-weight: 300; color: var(--warm-gray);
+            text-align: center; line-height: 1.6; max-width: 300px;
+            opacity: 0; animation: fadeUp 0.5s ease-out 0.5s forwards;
         }
 
         /* ===== FOOTER ===== */
         .footer {
-            padding: 16px 0 24px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            opacity: 0;
-            animation: fadeUp 0.5s ease-out 1s forwards;
+            padding: 16px 0 28px;
+            display: flex; flex-direction: column; align-items: center; gap: 14px;
+            opacity: 0; animation: fadeUp 0.4s ease-out 0.9s forwards;
         }
 
-        .lang-switcher {
-            display: flex;
-            align-items: center;
-            gap: 6px;
+        .lang-row {
+            display: flex; align-items: center; gap: 4px;
         }
 
-        .lang-switcher .globe {
-            width: 14px;
-            height: 14px;
-            color: var(--stone);
-            margin-right: 2px;
+        .lang-row .icon-globe {
+            width: 13px; height: 13px; color: var(--stone); margin-right: 4px;
         }
 
         .lang-btn {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 11.5px;
-            font-weight: 400;
-            color: var(--stone);
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 3px 6px;
-            border-radius: 6px;
-            transition: all 0.2s;
-            letter-spacing: 0.02em;
+            font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 400;
+            color: var(--stone); background: none; border: none; cursor: pointer;
+            padding: 4px 7px; border-radius: 6px; transition: all 0.2s;
         }
 
         .lang-btn:hover { color: var(--warm-gray); background: rgba(0,0,0,0.03); }
-        .lang-btn.active { color: var(--gold); font-weight: 500; }
+        .lang-btn.active { color: var(--gold); font-weight: 600; }
 
-        .lang-sep {
-            font-size: 10px;
-            color: var(--sand);
-            user-select: none;
-        }
+        .lang-dot { font-size: 8px; color: var(--sand); user-select: none; line-height: 1; }
 
-        .footer-credit {
-            font-size: 10.5px;
-            color: var(--stone);
-            letter-spacing: 0.04em;
+        .credit {
+            font-size: 10px; color: var(--stone); letter-spacing: 0.06em;
         }
-
-        .footer-credit a {
-            color: var(--warm-gray);
-            text-decoration: none;
-            font-weight: 500;
-        }
+        .credit a { color: var(--warm-gray); text-decoration: none; font-weight: 500; }
 
         /* ===== ANIMATIONS ===== */
-        @keyframes fadeDown { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes scaleIn { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }
+        .screen-exit { animation: screenOut 0.22s ease-in forwards; }
+        @keyframes screenOut { to { opacity: 0; transform: translateY(-6px); } }
 
-        .screen-exit { animation: fadeOut 0.25s ease-in forwards; }
-        @keyframes fadeOut { to { opacity: 0; transform: translateY(-8px); } }
-
-        /* ===== LOADING DOTS ===== */
-        .loading-dots span {
-            display: inline-block;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: white;
-            margin: 0 3px;
-            animation: dotPulse 1s ease-in-out infinite;
-        }
-        .loading-dots span:nth-child(2) { animation-delay: 0.15s; }
-        .loading-dots span:nth-child(3) { animation-delay: 0.3s; }
-        @keyframes dotPulse { 0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); } 40% { opacity: 1; transform: scale(1); } }
+        .dots span { display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: white; margin: 0 2.5px; animation: pulse 0.9s ease-in-out infinite; }
+        .dots span:nth-child(2) { animation-delay: 0.12s; }
+        .dots span:nth-child(3) { animation-delay: 0.24s; }
+        @keyframes pulse { 0%,80%,100% { opacity: 0.3; } 40% { opacity: 1; } }
     </style>
 </head>
 <body>
 
 <div class="container">
     <header class="header">
-        <div class="header-accent"></div>
-        <h1 class="property-name" id="propertyName">Villa Oleandro</h1>
-        <p class="property-subtitle" id="propertySubtitle">Lake Como, Italy</p>
+        <div class="header-mark"></div>
+        <h1 class="property-name" id="propName">Villa Oleandro</h1>
+        <p class="property-subtitle" id="propSub">Lake Como, Italy</p>
     </header>
 
     <main class="content">
 
-        <!-- SCREEN 1: Question -->
-        <div class="screen active" id="screenQuestion">
-            <p class="question-text" id="questionText">How was your stay?</p>
+        <!-- QUESTION -->
+        <div class="screen active" id="sQ">
+            <p class="question-text" id="tQ">How was your stay?</p>
             <div class="choices">
-                <a class="choice-btn positive" id="positiveBtn" href="#" onclick="handlePositive(event)">
+                <a class="choice-btn positive" id="btnPos" href="#" onclick="goPositive(event)">
                     <div class="choice-icon">&#10024;</div>
                     <div class="choice-label">
-                        <span class="choice-title" id="positiveTitle">It was wonderful</span>
-                        <span class="choice-desc" id="positiveDesc">I had a great experience</span>
+                        <span class="choice-title" id="tPosT">It was wonderful</span>
+                        <span class="choice-desc" id="tPosD">I had a great experience</span>
                     </div>
                 </a>
-                <button class="choice-btn negative" onclick="showNegative()">
+                <button class="choice-btn negative" onclick="goNegative()">
                     <div class="choice-icon">&#128172;</div>
                     <div class="choice-label">
-                        <span class="choice-title" id="negativeTitle">Could be better</span>
-                        <span class="choice-desc" id="negativeDesc">I have some feedback to share</span>
+                        <span class="choice-title" id="tNegT">Could be better</span>
+                        <span class="choice-desc" id="tNegD">I have some feedback to share</span>
                     </div>
                 </button>
             </div>
         </div>
 
-        <!-- SCREEN 2: Feedback Form -->
-        <div class="screen" id="screenNegative">
+        <!-- FEEDBACK -->
+        <div class="screen" id="sF">
             <div class="feedback-icon">&#9998;</div>
-            <h2 class="feedback-title" id="feedbackTitle">We appreciate your honesty</h2>
-            <p class="feedback-subtitle" id="feedbackSubtitle">Your feedback goes directly to the owner and helps us improve for future guests.</p>
+            <h2 class="feedback-title" id="tFT">We appreciate your honesty</h2>
+            <p class="feedback-subtitle" id="tFS">Your feedback goes directly to the owner and helps us improve for future guests.</p>
             <div class="feedback-form">
-                <textarea class="feedback-textarea" id="feedbackText" maxlength="1000" oninput="updateCharCount()"></textarea>
-                <div class="form-row">
-                    <span></span>
-                    <span class="char-count"><span id="charCount">0</span> / 1000</span>
-                </div>
-                <button class="submit-btn" id="submitBtn" onclick="submitFeedback()" disabled>
-                    <span id="submitBtnText">Send feedback</span>
-                </button>
-                <a class="back-link" onclick="goBack()" id="backLink">Go back</a>
+                <textarea class="feedback-textarea" id="fText" maxlength="1000" oninput="uc()"></textarea>
+                <div class="form-meta"><span class="char-count"><span id="cc">0</span> / 1000</span></div>
+                <button class="btn-primary" id="btnSub" onclick="sendFB()" disabled><span id="tBtn">Send feedback</span></button>
+                <a class="link-back" onclick="goBack()" id="tBack">Go back</a>
             </div>
         </div>
 
-        <!-- SCREEN 3: Feedback Sent -->
-        <div class="screen" id="screenSent">
-            <div class="sent-icon">
+        <!-- SENT -->
+        <div class="screen" id="sS">
+            <div class="confirm-icon success">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
             </div>
-            <h2 class="sent-title" id="sentTitle">Thank you for your feedback</h2>
-            <p class="sent-text" id="sentText">Your message has been sent directly to the owner. We truly value your input and will use it to improve.</p>
+            <h2 class="confirm-title" id="tST">Thank you for your feedback</h2>
+            <p class="confirm-text" id="tSS">Your message has been sent directly to the owner. We truly value your input and will use it to improve.</p>
         </div>
 
     </main>
 
     <footer class="footer">
-        <div class="lang-switcher">
-            <svg class="globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
-            <button class="lang-btn" data-lang="en" onclick="switchLang('en')">EN</button>
-            <span class="lang-sep">&middot;</span>
-            <button class="lang-btn" data-lang="it" onclick="switchLang('it')">IT</button>
-            <span class="lang-sep">&middot;</span>
-            <button class="lang-btn" data-lang="de" onclick="switchLang('de')">DE</button>
-            <span class="lang-sep">&middot;</span>
-            <button class="lang-btn" data-lang="fr" onclick="switchLang('fr')">FR</button>
-            <span class="lang-sep">&middot;</span>
-            <button class="lang-btn" data-lang="es" onclick="switchLang('es')">ES</button>
+        <div class="lang-row">
+            <svg class="icon-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+            <button class="lang-btn" data-l="en" onclick="setLang('en')">EN</button><span class="lang-dot">&middot;</span>
+            <button class="lang-btn" data-l="it" onclick="setLang('it')">IT</button><span class="lang-dot">&middot;</span>
+            <button class="lang-btn" data-l="de" onclick="setLang('de')">DE</button><span class="lang-dot">&middot;</span>
+            <button class="lang-btn" data-l="fr" onclick="setLang('fr')">FR</button><span class="lang-dot">&middot;</span>
+            <button class="lang-btn" data-l="es" onclick="setLang('es')">ES</button>
         </div>
-        <p class="footer-credit">Powered by <a href="#">GuestVoice</a></p>
+        <p class="credit">Powered by <a href="#">GuestVoice</a></p>
     </footer>
 </div>
 
 <script>
-    // ============================================
-    // CONFIG VIA URL PARAMETERS
-    // ============================================
-    const params = new URLSearchParams(window.location.search);
-    const propertyName = params.get('name') || 'Villa Oleandro';
-    const propertySubtitle = params.get('subtitle') || 'Lake Como, Italy';
-    let currentLang = params.get('lang') || 'en';
-    const googleReviewUrl = params.get('google') || 'https://search.google.com/local/writereview?placeid=DEMO';
-    const webhookUrl = params.get('webhook') || 'https://mattiia17.app.n8n.cloud/webhook/guestvoice-feedback';
-    const guestName = params.get('guest') || '';
-    const bookingId = params.get('id') || '';
+const P = new URLSearchParams(location.search);
+const cfg = {
+    name: P.get('name') || 'Villa Oleandro',
+    sub: P.get('subtitle') || 'Lake Como, Italy',
+    lang: P.get('lang') || 'en',
+    google: P.get('google') || 'https://search.google.com/local/writereview?placeid=ChIJB-DtYMmdhkcRtgh_VwKWlB4',
+    wh: 'https://mattiia17.app.n8n.cloud/webhook/guestvoice-feedback',
+    guest: P.get('guest') || '',
+    id: P.get('id') || ''
+};
 
-    // ============================================
-    // TRANSLATIONS
-    // ============================================
-    const T = {
-        en: {
-            question: "How was your stay?",
-            positiveTitle: "It was wonderful",
-            positiveDesc: "I had a great experience",
-            negativeTitle: "Could be better",
-            negativeDesc: "I have some feedback to share",
-            feedbackTitle: "We appreciate your honesty",
-            feedbackSubtitle: "Your feedback goes directly to the owner and helps us improve for future guests.",
-            feedbackPlaceholder: "What could we have done better?",
-            submitBtn: "Send feedback",
-            backLink: "Go back",
-            sentTitle: "Thank you for your feedback",
-            sentText: "Your message has been sent directly to the owner. We truly value your input and will use it to improve.",
-        },
-        it: {
-            question: "Com\u2019\u00E8 stato il tuo soggiorno?",
-            positiveTitle: "\u00C8 stato meraviglioso",
-            positiveDesc: "Ho avuto un\u2019ottima esperienza",
-            negativeTitle: "Poteva andare meglio",
-            negativeDesc: "Ho un feedback da condividere",
-            feedbackTitle: "Apprezziamo la tua sincerit\u00E0",
-            feedbackSubtitle: "Il tuo feedback arriva direttamente al proprietario e ci aiuta a migliorare per i futuri ospiti.",
-            feedbackPlaceholder: "Cosa avremmo potuto fare meglio?",
-            submitBtn: "Invia feedback",
-            backLink: "Torna indietro",
-            sentTitle: "Grazie per il tuo feedback",
-            sentText: "Il tuo messaggio \u00E8 stato inviato direttamente al proprietario. Apprezziamo sinceramente il tuo contributo.",
-        },
-        de: {
-            question: "Wie war Ihr Aufenthalt?",
-            positiveTitle: "Es war wunderbar",
-            positiveDesc: "Ich hatte eine gro\u00DFartige Erfahrung",
-            negativeTitle: "K\u00F6nnte besser sein",
-            negativeDesc: "Ich habe Feedback zu teilen",
-            feedbackTitle: "Wir sch\u00E4tzen Ihre Ehrlichkeit",
-            feedbackSubtitle: "Ihr Feedback geht direkt an den Eigent\u00FCmer und hilft uns, uns zu verbessern.",
-            feedbackPlaceholder: "Was h\u00E4tten wir besser machen k\u00F6nnen?",
-            submitBtn: "Feedback senden",
-            backLink: "Zur\u00FCck",
-            sentTitle: "Vielen Dank f\u00FCr Ihr Feedback",
-            sentText: "Ihre Nachricht wurde direkt an den Eigent\u00FCmer gesendet. Wir sch\u00E4tzen Ihren Beitrag sehr.",
-        },
-        fr: {
-            question: "Comment s\u2019est pass\u00E9 votre s\u00E9jour\u00A0?",
-            positiveTitle: "C\u2019\u00E9tait merveilleux",
-            positiveDesc: "J\u2019ai v\u00E9cu une excellente exp\u00E9rience",
-            negativeTitle: "Pourrait \u00EAtre mieux",
-            negativeDesc: "J\u2019ai un retour \u00E0 partager",
-            feedbackTitle: "Nous appr\u00E9cions votre honn\u00EAtet\u00E9",
-            feedbackSubtitle: "Votre retour est envoy\u00E9 directement au propri\u00E9taire et nous aide \u00E0 nous am\u00E9liorer.",
-            feedbackPlaceholder: "Qu\u2019aurions-nous pu faire mieux\u00A0?",
-            submitBtn: "Envoyer",
-            backLink: "Retour",
-            sentTitle: "Merci pour votre retour",
-            sentText: "Votre message a \u00E9t\u00E9 envoy\u00E9 directement au propri\u00E9taire. Nous appr\u00E9cions votre contribution.",
-        },
-        es: {
-            question: "\u00BFC\u00F3mo fue tu estancia?",
-            positiveTitle: "Fue maravilloso",
-            positiveDesc: "Tuve una experiencia incre\u00EDble",
-            negativeTitle: "Podr\u00EDa mejorar",
-            negativeDesc: "Tengo comentarios para compartir",
-            feedbackTitle: "Agradecemos tu sinceridad",
-            feedbackSubtitle: "Tu feedback llega directamente al propietario y nos ayuda a mejorar.",
-            feedbackPlaceholder: "\u00BFQu\u00E9 podr\u00EDamos haber hecho mejor?",
-            submitBtn: "Enviar feedback",
-            backLink: "Volver",
-            sentTitle: "Gracias por tu feedback",
-            sentText: "Tu mensaje ha sido enviado directamente al propietario. Valoramos sinceramente tu aporte.",
-        },
-    };
+const L = {
+    en: { q:"How was your stay?", pt:"It was wonderful", pd:"I had a great experience", nt:"Could be better", nd:"I have some feedback to share", ft:"We appreciate your honesty", fs:"Your feedback goes directly to the owner and helps us improve for future guests.", fp:"What could we have done better?", btn:"Send feedback", back:"Go back", st:"Thank you for your feedback", ss:"Your message has been sent directly to the owner. We truly value your input and will use it to improve." },
+    it: { q:"Com\u2019\u00E8 stato il tuo soggiorno?", pt:"\u00C8 stato meraviglioso", pd:"Ho avuto un\u2019esperienza fantastica", nt:"Poteva andare meglio", nd:"Ho un feedback da condividere", ft:"Apprezziamo la tua sincerit\u00E0", fs:"Il tuo feedback arriva direttamente al proprietario e ci aiuta a migliorare.", fp:"Cosa avremmo potuto fare meglio?", btn:"Invia feedback", back:"Torna indietro", st:"Grazie per il tuo feedback", ss:"Il tuo messaggio \u00E8 stato inviato direttamente al proprietario. Lo apprezziamo sinceramente." },
+    de: { q:"Wie war Ihr Aufenthalt?", pt:"Es war wunderbar", pd:"Ich hatte eine gro\u00DFartige Erfahrung", nt:"K\u00F6nnte besser sein", nd:"Ich habe Feedback zu teilen", ft:"Wir sch\u00E4tzen Ihre Ehrlichkeit", fs:"Ihr Feedback geht direkt an den Eigent\u00FCmer und hilft uns, uns zu verbessern.", fp:"Was h\u00E4tten wir besser machen k\u00F6nnen?", btn:"Feedback senden", back:"Zur\u00FCck", st:"Vielen Dank f\u00FCr Ihr Feedback", ss:"Ihre Nachricht wurde direkt an den Eigent\u00FCmer gesendet." },
+    fr: { q:"Comment s\u2019est pass\u00E9 votre s\u00E9jour\u00A0?", pt:"C\u2019\u00E9tait merveilleux", pd:"J\u2019ai v\u00E9cu une excellente exp\u00E9rience", nt:"Pourrait \u00EAtre mieux", nd:"J\u2019ai un retour \u00E0 partager", ft:"Nous appr\u00E9cions votre honn\u00EAtet\u00E9", fs:"Votre retour est envoy\u00E9 directement au propri\u00E9taire.", fp:"Qu\u2019aurions-nous pu faire mieux\u00A0?", btn:"Envoyer", back:"Retour", st:"Merci pour votre retour", ss:"Votre message a \u00E9t\u00E9 envoy\u00E9 directement au propri\u00E9taire." },
+    es: { q:"\u00BFC\u00F3mo fue tu estancia?", pt:"Fue maravilloso", pd:"Tuve una experiencia incre\u00EDble", nt:"Podr\u00EDa mejorar", nd:"Tengo comentarios para compartir", ft:"Agradecemos tu sinceridad", fs:"Tu feedback llega directamente al propietario y nos ayuda a mejorar.", fp:"\u00BFQu\u00E9 podr\u00EDamos haber hecho mejor?", btn:"Enviar", back:"Volver", st:"Gracias por tu feedback", ss:"Tu mensaje ha sido enviado directamente al propietario." }
+};
 
-    // ============================================
-    // APPLY LANGUAGE
-    // ============================================
-    function applyLang(lang) {
-        currentLang = lang;
-        const t = T[lang] || T['en'];
+function apply(lang) {
+    cfg.lang = lang;
+    const t = L[lang] || L.en;
+    document.getElementById('propName').textContent = cfg.name;
+    document.getElementById('propSub').textContent = cfg.sub;
+    document.title = cfg.name + ' \u2014 GuestVoice';
+    document.getElementById('tQ').textContent = t.q;
+    document.getElementById('tPosT').textContent = t.pt;
+    document.getElementById('tPosD').textContent = t.pd;
+    document.getElementById('tNegT').textContent = t.nt;
+    document.getElementById('tNegD').textContent = t.nd;
+    document.getElementById('tFT').textContent = t.ft;
+    document.getElementById('tFS').textContent = t.fs;
+    document.getElementById('fText').placeholder = t.fp;
+    document.getElementById('tBtn').textContent = t.btn;
+    document.getElementById('tBack').textContent = t.back;
+    document.getElementById('tST').textContent = t.st;
+    document.getElementById('tSS').textContent = t.ss;
+    document.getElementById('btnPos').href = cfg.google;
+    document.documentElement.lang = lang;
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.l === lang));
+}
 
-        document.getElementById('propertyName').textContent = propertyName;
-        document.getElementById('propertySubtitle').textContent = propertySubtitle;
-        document.title = `${propertyName} \u2014 GuestVoice`;
+function setLang(l) {
+    apply(l);
+    const u = new URL(location); u.searchParams.set('lang', l); history.replaceState({}, '', u);
+}
 
-        document.getElementById('questionText').textContent = t.question;
-        document.getElementById('positiveTitle').textContent = t.positiveTitle;
-        document.getElementById('positiveDesc').textContent = t.positiveDesc;
-        document.getElementById('negativeTitle').textContent = t.negativeTitle;
-        document.getElementById('negativeDesc').textContent = t.negativeDesc;
-        document.getElementById('feedbackTitle').textContent = t.feedbackTitle;
-        document.getElementById('feedbackSubtitle').textContent = t.feedbackSubtitle;
-        document.getElementById('feedbackText').placeholder = t.feedbackPlaceholder;
-        document.getElementById('submitBtnText').textContent = t.submitBtn;
-        document.getElementById('backLink').textContent = t.backLink;
-        document.getElementById('sentTitle').textContent = t.sentTitle;
-        document.getElementById('sentText').textContent = t.sentText;
+function sw(a, b) {
+    const A = document.getElementById(a), B = document.getElementById(b);
+    A.classList.add('screen-exit');
+    setTimeout(() => { A.classList.remove('active','screen-exit'); B.classList.add('active'); }, 220);
+}
 
-        document.getElementById('positiveBtn').href = googleReviewUrl;
-        document.documentElement.lang = lang;
+function goPositive(e) {
+    e.preventDefault();
+    fire('positive');
+    setTimeout(() => { window.open(cfg.google, '_blank'); }, 100);
+}
 
-        // Update active lang button
-        document.querySelectorAll('.lang-btn').forEach(btn => {
-            btn.classList.toggle('active', btn.dataset.lang === lang);
-        });
-    }
+function goNegative() {
+    sw('sQ','sF');
+    setTimeout(() => document.getElementById('fText').focus(), 300);
+}
 
-    function switchLang(lang) {
-        applyLang(lang);
-        // Update URL without reload
-        const url = new URL(window.location);
-        url.searchParams.set('lang', lang);
-        window.history.replaceState({}, '', url);
-    }
+function goBack() { sw('sF','sQ'); }
 
-    // ============================================
-    // SCREEN NAVIGATION
-    // ============================================
-    function switchScreen(from, to) {
-        const fromEl = document.getElementById(from);
-        const toEl = document.getElementById(to);
-        fromEl.classList.add('screen-exit');
-        setTimeout(() => {
-            fromEl.classList.remove('active', 'screen-exit');
-            toEl.classList.add('active');
-        }, 250);
-    }
+function uc() {
+    const v = document.getElementById('fText').value;
+    document.getElementById('cc').textContent = v.length;
+    document.getElementById('btnSub').disabled = v.trim().length < 5;
+}
 
-    // POSITIVE: Send event then go DIRECTLY to Google Reviews
-    function handlePositive(e) {
-        e.preventDefault();
-        sendEvent('positive');
-        // Small delay so webhook fires, then redirect
-        setTimeout(() => {
-            window.open(googleReviewUrl, '_blank');
-        }, 150);
-    }
+function sendFB() {
+    const t = document.getElementById('fText').value.trim();
+    if (t.length < 5) return;
+    const b = document.getElementById('btnSub');
+    b.disabled = true;
+    b.innerHTML = '<span class="dots"><span></span><span></span><span></span></span>';
+    fire('negative', t);
+    setTimeout(() => sw('sF','sS'), 700);
+}
 
-    function showNegative() {
-        switchScreen('screenQuestion', 'screenNegative');
-        setTimeout(() => document.getElementById('feedbackText').focus(), 350);
-    }
+function fire(type, fb = '') {
+    const d = { property: cfg.name, guest: cfg.guest, bookingId: cfg.id, type, feedback: fb, language: cfg.lang, timestamp: new Date().toISOString() };
+    if (!cfg.wh) { console.log('Demo:', d); return; }
+    fetch(cfg.wh, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(d) })
+        .then(r => console.log('Webhook sent:', r.status))
+        .catch(e => console.log('Webhook error:', e));
+}
 
-    function goBack() {
-        switchScreen('screenNegative', 'screenQuestion');
-    }
-
-    // ============================================
-    // FEEDBACK FORM
-    // ============================================
-    function updateCharCount() {
-        const text = document.getElementById('feedbackText').value;
-        document.getElementById('charCount').textContent = text.length;
-        document.getElementById('submitBtn').disabled = text.trim().length < 5;
-    }
-
-    function submitFeedback() {
-        const text = document.getElementById('feedbackText').value.trim();
-        if (text.length < 5) return;
-
-        const btn = document.getElementById('submitBtn');
-        btn.disabled = true;
-        btn.innerHTML = '<span class="loading-dots"><span></span><span></span><span></span></span>';
-
-        sendEvent('negative', text);
-
-        setTimeout(() => {
-            switchScreen('screenNegative', 'screenSent');
-        }, 800);
-    }
-
-    // ============================================
-    // WEBHOOK
-    // ============================================
-    function sendEvent(type, feedback = '') {
-        const payload = {
-            property: propertyName,
-            guest: guestName,
-            bookingId: bookingId,
-            type: type,
-            feedback: feedback,
-            language: currentLang,
-            timestamp: new Date().toISOString(),
-        };
-
-        if (!webhookUrl) {
-            console.log('Demo mode \u2014 event:', JSON.stringify(payload, null, 2));
-            return;
-        }
-
-        fetch(webhookUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        }).then(r => console.log('Webhook sent:', r.status)).catch(err => console.log('Webhook error:', err));
-    }
-
-    // ============================================
-    // INIT
-    // ============================================
-    applyLang(currentLang);
+apply(cfg.lang);
 </script>
-
 </body>
 </html>
