@@ -112,6 +112,9 @@
         .screen { display: none; flex-direction: column; align-items: center; }
         .screen.active { display: flex; }
 
+        /* Fix: ensure screens show properly after transitions */
+        .screen.active .anim { opacity: 1; transform: none; }
+
         /* ===== QUESTION SCREEN ===== */
         .question-text {
             font-family: 'Cormorant Garamond', serif;
@@ -121,17 +124,16 @@
             text-align: center;
             line-height: 1.2;
             margin-bottom: 48px;
-            opacity: 0;
-            animation: fadeUp 0.6s ease-out 0.45s forwards;
         }
+
+        .question-text.init { opacity: 0; animation: fadeUp 0.6s ease-out 0.45s forwards; }
+        .choices.init { opacity: 0; animation: fadeUp 0.6s ease-out 0.65s forwards; }
 
         .choices {
             display: flex;
             flex-direction: column;
             gap: 16px;
             width: 100%;
-            opacity: 0;
-            animation: fadeUp 0.6s ease-out 0.65s forwards;
         }
 
         .choice-btn {
@@ -174,6 +176,31 @@
         .choice-label { display: flex; flex-direction: column; gap: 4px; }
         .choice-title { font-size: 16.5px; font-weight: 500; color: var(--deep); text-align: left; }
         .choice-desc { font-size: 13px; font-weight: 300; color: var(--warm-gray); text-align: left; line-height: 1.4; }
+
+        /* Google Stars Badge */
+        .google-stars {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 6px;
+        }
+
+        .stars-row {
+            display: flex;
+            gap: 1px;
+        }
+
+        .stars-row svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .google-label {
+            font-size: 11px;
+            font-weight: 400;
+            color: var(--stone);
+            letter-spacing: 0.01em;
+        }
 
         /* ===== FEEDBACK SCREEN ===== */
         .feedback-icon {
@@ -302,8 +329,13 @@
         @keyframes fadeDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes scaleIn { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }
+
         .screen-exit { animation: screenOut 0.22s ease-in forwards; }
         @keyframes screenOut { to { opacity: 0; transform: translateY(-6px); } }
+
+        /* Re-enter animation for screens coming back */
+        .screen-enter { animation: screenEnter 0.3s ease-out forwards; }
+        @keyframes screenEnter { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .dots span { display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: white; margin: 0 2.5px; animation: pulse 0.9s ease-in-out infinite; }
         .dots span:nth-child(2) { animation-delay: 0.12s; }
@@ -324,13 +356,23 @@
 
         <!-- QUESTION -->
         <div class="screen active" id="sQ">
-            <p class="question-text" id="tQ">How was your stay?</p>
-            <div class="choices">
+            <p class="question-text init" id="tQ">How was your stay?</p>
+            <div class="choices init">
                 <a class="choice-btn positive" id="btnPos" href="#" onclick="goPositive(event)">
                     <div class="choice-icon">&#10024;</div>
                     <div class="choice-label">
                         <span class="choice-title" id="tPosT">It was wonderful</span>
                         <span class="choice-desc" id="tPosD">I had a great experience</span>
+                        <div class="google-stars">
+                            <div class="stars-row">
+                                <svg viewBox="0 0 24 24" fill="#FBBC04" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                <svg viewBox="0 0 24 24" fill="#FBBC04" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                <svg viewBox="0 0 24 24" fill="#FBBC04" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                <svg viewBox="0 0 24 24" fill="#FBBC04" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                <svg viewBox="0 0 24 24" fill="#FBBC04" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            </div>
+                            <span class="google-label" id="tStars">Rate on Google</span>
+                        </div>
                     </div>
                 </a>
                 <button class="choice-btn negative" onclick="goNegative()">
@@ -393,11 +435,11 @@ const cfg = {
 };
 
 const L = {
-    en: { q:"How was your stay?", pt:"It was wonderful", pd:"I had a great experience", nt:"Could be better", nd:"I have some feedback to share", ft:"We appreciate your honesty", fs:"Your feedback goes directly to the owner and helps us improve for future guests.", fp:"What could we have done better?", btn:"Send feedback", back:"Go back", st:"Thank you for your feedback", ss:"Your message has been sent directly to the owner. We truly value your input and will use it to improve." },
-    it: { q:"Com\u2019\u00E8 stato il tuo soggiorno?", pt:"\u00C8 stato meraviglioso", pd:"Ho avuto un\u2019esperienza fantastica", nt:"Poteva andare meglio", nd:"Ho un feedback da condividere", ft:"Apprezziamo la tua sincerit\u00E0", fs:"Il tuo feedback arriva direttamente al proprietario e ci aiuta a migliorare.", fp:"Cosa avremmo potuto fare meglio?", btn:"Invia feedback", back:"Torna indietro", st:"Grazie per il tuo feedback", ss:"Il tuo messaggio \u00E8 stato inviato direttamente al proprietario. Lo apprezziamo sinceramente." },
-    de: { q:"Wie war Ihr Aufenthalt?", pt:"Es war wunderbar", pd:"Ich hatte eine gro\u00DFartige Erfahrung", nt:"K\u00F6nnte besser sein", nd:"Ich habe Feedback zu teilen", ft:"Wir sch\u00E4tzen Ihre Ehrlichkeit", fs:"Ihr Feedback geht direkt an den Eigent\u00FCmer und hilft uns, uns zu verbessern.", fp:"Was h\u00E4tten wir besser machen k\u00F6nnen?", btn:"Feedback senden", back:"Zur\u00FCck", st:"Vielen Dank f\u00FCr Ihr Feedback", ss:"Ihre Nachricht wurde direkt an den Eigent\u00FCmer gesendet." },
-    fr: { q:"Comment s\u2019est pass\u00E9 votre s\u00E9jour\u00A0?", pt:"C\u2019\u00E9tait merveilleux", pd:"J\u2019ai v\u00E9cu une excellente exp\u00E9rience", nt:"Pourrait \u00EAtre mieux", nd:"J\u2019ai un retour \u00E0 partager", ft:"Nous appr\u00E9cions votre honn\u00EAtet\u00E9", fs:"Votre retour est envoy\u00E9 directement au propri\u00E9taire.", fp:"Qu\u2019aurions-nous pu faire mieux\u00A0?", btn:"Envoyer", back:"Retour", st:"Merci pour votre retour", ss:"Votre message a \u00E9t\u00E9 envoy\u00E9 directement au propri\u00E9taire." },
-    es: { q:"\u00BFC\u00F3mo fue tu estancia?", pt:"Fue maravilloso", pd:"Tuve una experiencia incre\u00EDble", nt:"Podr\u00EDa mejorar", nd:"Tengo comentarios para compartir", ft:"Agradecemos tu sinceridad", fs:"Tu feedback llega directamente al propietario y nos ayuda a mejorar.", fp:"\u00BFQu\u00E9 podr\u00EDamos haber hecho mejor?", btn:"Enviar", back:"Volver", st:"Gracias por tu feedback", ss:"Tu mensaje ha sido enviado directamente al propietario." }
+    en: { q:"How was your stay?", pt:"It was wonderful", pd:"I had a great experience", nt:"Could be better", nd:"I have some feedback to share", ft:"We appreciate your honesty", fs:"Your feedback goes directly to the owner and helps us improve for future guests.", fp:"What could we have done better?", btn:"Send feedback", back:"Go back", st:"Thank you for your feedback", ss:"Your message has been sent directly to the owner. We truly value your input and will use it to improve.", stars:"Rate on Google" },
+    it: { q:"Com\u2019\u00E8 stato il tuo soggiorno?", pt:"\u00C8 stato meraviglioso", pd:"Ho avuto un\u2019esperienza fantastica", nt:"Poteva andare meglio", nd:"Ho un feedback da condividere", ft:"Apprezziamo la tua sincerit\u00E0", fs:"Il tuo feedback arriva direttamente al proprietario e ci aiuta a migliorare.", fp:"Cosa avremmo potuto fare meglio?", btn:"Invia feedback", back:"Torna indietro", st:"Grazie per il tuo feedback", ss:"Il tuo messaggio \u00E8 stato inviato direttamente al proprietario. Lo apprezziamo sinceramente.", stars:"Valuta su Google" },
+    de: { q:"Wie war Ihr Aufenthalt?", pt:"Es war wunderbar", pd:"Ich hatte eine gro\u00DFartige Erfahrung", nt:"K\u00F6nnte besser sein", nd:"Ich habe Feedback zu teilen", ft:"Wir sch\u00E4tzen Ihre Ehrlichkeit", fs:"Ihr Feedback geht direkt an den Eigent\u00FCmer und hilft uns, uns zu verbessern.", fp:"Was h\u00E4tten wir besser machen k\u00F6nnen?", btn:"Feedback senden", back:"Zur\u00FCck", st:"Vielen Dank f\u00FCr Ihr Feedback", ss:"Ihre Nachricht wurde direkt an den Eigent\u00FCmer gesendet.", stars:"Auf Google bewerten" },
+    fr: { q:"Comment s\u2019est pass\u00E9 votre s\u00E9jour\u00A0?", pt:"C\u2019\u00E9tait merveilleux", pd:"J\u2019ai v\u00E9cu une excellente exp\u00E9rience", nt:"Pourrait \u00EAtre mieux", nd:"J\u2019ai un retour \u00E0 partager", ft:"Nous appr\u00E9cions votre honn\u00EAtet\u00E9", fs:"Votre retour est envoy\u00E9 directement au propri\u00E9taire.", fp:"Qu\u2019aurions-nous pu faire mieux\u00A0?", btn:"Envoyer", back:"Retour", st:"Merci pour votre retour", ss:"Votre message a \u00E9t\u00E9 envoy\u00E9 directement au propri\u00E9taire.", stars:"\u00C9valuer sur Google" },
+    es: { q:"\u00BFC\u00F3mo fue tu estancia?", pt:"Fue maravilloso", pd:"Tuve una experiencia incre\u00EDble", nt:"Podr\u00EDa mejorar", nd:"Tengo comentarios para compartir", ft:"Agradecemos tu sinceridad", fs:"Tu feedback llega directamente al propietario y nos ayuda a mejorar.", fp:"\u00BFQu\u00E9 podr\u00EDamos haber hecho mejor?", btn:"Enviar", back:"Volver", st:"Gracias por tu feedback", ss:"Tu mensaje ha sido enviado directamente al propietario.", stars:"Valorar en Google" }
 };
 
 function apply(lang) {
@@ -418,6 +460,7 @@ function apply(lang) {
     document.getElementById('tBack').textContent = t.back;
     document.getElementById('tST').textContent = t.st;
     document.getElementById('tSS').textContent = t.ss;
+    document.getElementById('tStars').textContent = t.stars;
     document.getElementById('btnPos').href = cfg.google;
     document.documentElement.lang = lang;
     document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.l === lang));
@@ -428,47 +471,76 @@ function setLang(l) {
     const u = new URL(location); u.searchParams.set('lang', l); history.replaceState({}, '', u);
 }
 
-function sw(a, b) {
-    const A = document.getElementById(a), B = document.getElementById(b);
+// Fixed screen switcher — properly handles re-showing screens on mobile
+function sw(from, to) {
+    const A = document.getElementById(from);
+    const B = document.getElementById(to);
+    
     A.classList.add('screen-exit');
-    setTimeout(() => { A.classList.remove('active','screen-exit'); B.classList.add('active'); }, 220);
+    
+    setTimeout(function() {
+        A.classList.remove('active', 'screen-exit');
+        
+        // Remove init animations so they don't replay with opacity:0
+        B.querySelectorAll('.init').forEach(function(el) {
+            el.classList.remove('init');
+        });
+        
+        B.classList.add('active', 'screen-enter');
+        
+        // Clean up enter animation class after it completes
+        setTimeout(function() {
+            B.classList.remove('screen-enter');
+        }, 350);
+    }, 220);
 }
 
 function goPositive(e) {
     e.preventDefault();
     fire('positive');
-    setTimeout(() => { window.open(cfg.google, '_blank'); }, 100);
+    setTimeout(function() { window.open(cfg.google, '_blank'); }, 100);
 }
 
 function goNegative() {
-    sw('sQ','sF');
-    setTimeout(() => document.getElementById('fText').focus(), 300);
+    sw('sQ', 'sF');
+    setTimeout(function() { document.getElementById('fText').focus(); }, 350);
 }
 
-function goBack() { sw('sF','sQ'); }
+function goBack() {
+    // Reset the textarea when going back
+    document.getElementById('fText').value = '';
+    document.getElementById('cc').textContent = '0';
+    document.getElementById('btnSub').disabled = true;
+    // Restore the button text in case it was changed to dots
+    var t = L[cfg.lang] || L.en;
+    document.getElementById('tBtn').textContent = t.btn;
+    
+    sw('sF', 'sQ');
+}
 
 function uc() {
-    const v = document.getElementById('fText').value;
+    var v = document.getElementById('fText').value;
     document.getElementById('cc').textContent = v.length;
     document.getElementById('btnSub').disabled = v.trim().length < 5;
 }
 
 function sendFB() {
-    const t = document.getElementById('fText').value.trim();
+    var t = document.getElementById('fText').value.trim();
     if (t.length < 5) return;
-    const b = document.getElementById('btnSub');
+    var b = document.getElementById('btnSub');
     b.disabled = true;
     b.innerHTML = '<span class="dots"><span></span><span></span><span></span></span>';
     fire('negative', t);
-    setTimeout(() => sw('sF','sS'), 700);
+    setTimeout(function() { sw('sF', 'sS'); }, 700);
 }
 
-function fire(type, fb = '') {
-    const d = { property: cfg.name, guest: cfg.guest, bookingId: cfg.id, type, feedback: fb, language: cfg.lang, timestamp: new Date().toISOString() };
+function fire(type, fb) {
+    fb = fb || '';
+    var d = { property: cfg.name, guest: cfg.guest, bookingId: cfg.id, type: type, feedback: fb, language: cfg.lang, timestamp: new Date().toISOString() };
     if (!cfg.wh) { console.log('Demo:', d); return; }
-    fetch(cfg.wh, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(d) })
-        .then(r => console.log('Webhook sent:', r.status))
-        .catch(e => console.log('Webhook error:', e));
+    fetch(cfg.wh, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d) })
+        .then(function(r) { console.log('Webhook sent:', r.status); })
+        .catch(function(e) { console.log('Webhook error:', e); });
 }
 
 apply(cfg.lang);
